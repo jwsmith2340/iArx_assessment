@@ -17,6 +17,11 @@ class FillStationResponse(BaseModel):
     cheapest_medication: CheapestMedication
     manhattan_distance: int
 
+@app.get("/health")
+def health_check():
+    """Compose health check route"""
+    return {"status": "healthy"}
+
 @app.get("/enter_coordinates/", response_model=List[FillStationResponse])
 def get_coordinates(x_axis: int, y_axis: int) -> List[FillStationResponse]:
     """GET Route to return information about the three nearest fill stations.
