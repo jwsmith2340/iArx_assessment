@@ -84,6 +84,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    print("Waiting for the API to instantiate...")
-    sleep(8)
     main()
