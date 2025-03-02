@@ -60,7 +60,6 @@ def seed_data() -> None:
     num_records = random.randint(6, 15)
     seed_records = gen_seeds(num_records)
 
-    # Insert generated seed data
     cursor.executemany(
         """
     INSERT INTO fill_stations (x_axis, y_axis, med_a, med_b, med_c)
