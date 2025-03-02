@@ -4,7 +4,7 @@
 This repo contains the iA Coding Challenge completed by James Smith including all required deliverables. 
 
 ## Running the Project
-This project is launched using Docker Compose, so ensure that your local machine is running the Docker engine. For information on how to run Docker on your local machine, please see Docker's official documentation MAKE THIS A LINK HERE. 
+This project is launched using Docker Compose, so ensure that your local machine is running the Docker engine. For information on how to run Docker on your local machine, please see Docker's official documentation **[HERE](https://www.docker.com/blog/getting-started-with-docker-desktop/)**. 
 
 1. Start by cloning down the repo to your local machine. With the Docker engine running, run the command from the compose.yaml level of the project **docker-compose build** command to build the Docker image.
 
