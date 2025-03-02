@@ -84,6 +84,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    print("The CLI is connecting to the API...")
-    sleep(5)
+    print("Waiting for the API to instantiate...")
+    sleep(8)
     main()
