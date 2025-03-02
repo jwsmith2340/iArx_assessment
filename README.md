@@ -15,4 +15,12 @@ This project is launched using Docker Compose, so ensure that your local machine
 ## Assumptions
 Several assumptions were made while completing this assessment. This section will detail those assumptions.
 
-1. A DB should be used to 
+1. A DB was created to house the seeded values, since a DB would be used in a warehouse to keep track of stations, meds, and their prices. Therefore, seeded data was pushed to the DB instead of being stored in memory. 
+
+2. The API was decoupled from the CLI service instead of wrapping the application into one monolith repo. This was done to allow the API to change and scale as needed without affecting the CLI as needed in the future if this were actual business code. 
+
+3. The number of seeded fill stations is between 6 and 15. This was done so there would not be an excessive number of fill stations immediately surrounding the given coordinates while still allowing for enough stations to be able to verify the Manhattan Distance is being computed correctly. 
+
+4. The price of the medications was kept between $1.00 and $100.00. This was done simply to limit the range of values for the assessment. 
+
+5. Docker containers were not explicitly requested in the instrucitons, but using them makes the code portable and able to be run on any machine with Docker running, so they were utilized. 
