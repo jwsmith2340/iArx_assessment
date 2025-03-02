@@ -7,7 +7,6 @@ from common.utils import db_config
 
 app = FastAPI()
 
-# Define Pydantic models
 class CheapestMedication(BaseModel):
     med_name: str
     med_price: float
