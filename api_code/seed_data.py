@@ -5,7 +5,16 @@ import time
 from common.utils import db_config
 
 
-def wait_for_db():
+def wait_for_db() -> None:
+    """A function that ensure connectivity to the DB
+
+        Args:
+            None
+        
+        Returns:
+            None
+
+    """
     retries = 3
 
     for i in range(retries):
@@ -22,11 +31,19 @@ def wait_for_db():
     raise Exception(f"Database connection failed after {retries} retries.")
 
 
-def seed_data():
+def seed_data() -> None:
+    """The function that generates random seed data and inserts it into the DB
+    
+        Args:
+            None
+
+        Returns:
+            None
+
+    """
     conn = psycopg2.connect(**db_config)
     cursor = conn.cursor()
 
-    # Ensure table exists
     cursor.execute(
         """
     CREATE TABLE IF NOT EXISTS fill_stations (
@@ -41,6 +58,32 @@ def seed_data():
     )
 
     num_records = random.randint(6, 15)
+    seed_records = gen_seeds(num_records)
+
+    # Insert generated seed data
+    cursor.executemany(
+        """
+    INSERT INTO fill_stations (x_axis, y_axis, med_a, med_b, med_c)
+    VALUES (%s, %s, %s, %s, %s);
+    """,
+        seed_records,
+    )
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+    print(f"Seeded {num_records} records into fill_stations.")
+
+def gen_seeds(num_records: int) -> list[tuple[int | float]]:
+    """A function to create a list of tuples with seed values
+
+        Args:
+            num_records (int): Random int controlling how many seeds to create
+
+        Returns:
+            list: List of tuples with x, y, and Med A/B/C seed values    
+    
+    """
     generated_coords = set()
     seed_records = []
 
@@ -60,20 +103,7 @@ def seed_data():
                 )
             )
 
-    # Insert generated seed data
-    cursor.executemany(
-        """
-    INSERT INTO fill_stations (x_axis, y_axis, med_a, med_b, med_c)
-    VALUES (%s, %s, %s, %s, %s);
-    """,
-        seed_records,
-    )
-
-    conn.commit()
-    cursor.close()
-    conn.close()
-    print(f"Seeded {num_records} records into fill_stations.")
-
+    return seed_records
 
 if __name__ == "__main__":
     wait_for_db()
