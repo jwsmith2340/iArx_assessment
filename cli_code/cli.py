@@ -73,7 +73,6 @@ def main() -> None:
                         f"Central Fill {station['central_fill']:03d} - ${station['cheapest_medication']['med_price']:.2f}\tMedication: {station['cheapest_medication']['med_name'].upper()}\tDistance: {station['manhattan_distance']}"
                     )
 
-        # Ask the user if they want to continue or exit
         continue_prompt = (
             input("Do you want to enter another coordinate? (y/n): ").strip().lower()
         )
