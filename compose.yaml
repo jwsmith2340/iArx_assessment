@@ -12,15 +12,13 @@ services:
       - POSTGRES_DB=data
       - POSTGRES_HOST_AUTH_METHOD=md5
       - POSTGRES_INITDB_ARGS=--auth=md5
-    # volumes:
-    #   -postgres-db-volume:/var/lib/postgreql/data
     ports:
       - 5432:5432
     networks:
       - my_network
   
   app:
-    build: .
+    build: ./api_code
     container_name: iarx_fast_api
     depends_on:
       - postgres
@@ -28,20 +26,16 @@ services:
       DATABASE_URL: postgresql://admin:admin@postgres:5432/data
     ports:
       - 5000:5000
-    volumes:
-      - C:/Users/13042/Desktop/code/iArx_assessment/main.py:/opt/iarx/main.py
     command: >
-      sh -c "python seed_data.py && uvicorn main:app --host 0.0.0.0 --port 5000 --reload"
+      sh -c "python /opt/iarx/seed_data.py && uvicorn main:app --host 0.0.0.0 --port 5000 --reload"
     networks:
       - my_network
   
   cli:
     build:
-      context: .
+      context: ./cli_code
     command: >
       sh -c "python /opt/iarx/cli.py"
-    volumes:
-      - ./cli:/opt/cli
     depends_on:
       - app
     stdin_open: true  # Keep stdin open for interactive input
